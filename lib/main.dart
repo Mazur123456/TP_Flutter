@@ -9,7 +9,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CounterViewModel(0 as CounterModel)), // Gestionnaire d'état
+        ChangeNotifierProvider(create: (_) => CounterViewModel()), // Gestionnaire d'état
       ],
       child: const MyApp(),
     ),
