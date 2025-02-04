@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-const Color primaryColor = Color(0xFF2196F3);
-const String appTitle = 'Compteur App';
-const String secondPageTitle = 'Seconde page';
+import 'constants/constante.dart';  // Import du fichier constants.dart
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,
+      title: appTitle,  // Utilisation de la constante pour le titre
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
@@ -28,9 +25,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/*
- * Page d'accueil et son état mutable
- */
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -38,14 +32,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
-/*
- * Etat mutable de la page d'accueil
- */
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
-
-  //Ici, les méthodes et fonctions qui font varier l'état de votre page d'accueil
 
   // Méthode d'incrémentation du compteur
   void _incrementCounter() {
@@ -61,7 +49,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // Fonction build qui construit l'UI associé à l'état de votre page
+  // Fonction build qui construit l'UI associée à l'état de votre page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,12 +61,12 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/');
               },
-              child: Image.asset('assets/logo.png', height: 40),
+              child: Image.asset('assets/carre.png', height: iconSize),  // Utilisation de la constante pour l'icône
             ),
             const SizedBox(width: 10),
-            const Text(appTitle),
+            Text(appTitle),  // Utilisation de la constante pour le titre
           ],
-        )
+        ),
       ),
       body: Center(
         child: Column(
@@ -122,13 +110,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-
   }
 }
 
-/*
- * La seconde page de votre app
- */
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
 
@@ -136,7 +120,7 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(secondPageTitle),
+        title: const Text(secondPageTitle),  // Utilisation de la constante pour le titre de la seconde page
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: const Center(
