@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'constants/constante.dart';  // Import du fichier constants.dart
+import 'package:flutter_tp/modele/CounterModel.dart';
+import 'package:provider/provider.dart';
+import 'constants/constante.dart'; // Import des constantes
+import 'vueModele/CounterViewModel.dart'; // Import de la vue-modèle
+import '../widget/CustomCounter.dart'; // Import du widget personnalisé
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CounterViewModel(0 as CounterModel)), // Gestionnaire d'état
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,  // Utilisation de la constante pour le titre
+      title: appTitle,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
@@ -25,31 +36,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  // Méthode d'incrémentation du compteur
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  // Méthode de décrémentation du compteur
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
-  // Fonction build qui construit l'UI associée à l'état de votre page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,45 +50,21 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/');
               },
-              child: Image.asset('assets/carre.png', height: iconSize),  // Utilisation de la constante pour l'icône
+              child: Image.asset('assets/carre.png', height: iconSize),
             ),
             const SizedBox(width: 10),
-            Text(appTitle),  // Utilisation de la constante pour le titre
+            Text(appTitle),
           ],
         ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: _decrementCounter,
-                  ),
-                  Text(
-                    '$_counter',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Icon(
-                    Icons.favorite,
-                    color: _counter < 0 ? Colors.black : Colors.red,
-                    size: 50,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: _incrementCounter,
-                  ),
-                ],
-              ),
-            ),
+          children: [
+            const Text('You have pushed the button this many times:'),
+            const SizedBox(height: 20),
+            CustomCounter(), // Utilisation du widget personnalisé
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/second');
@@ -120,7 +85,7 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(secondPageTitle),  // Utilisation de la constante pour le titre de la seconde page
+        title: const Text(secondPageTitle),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: const Center(
