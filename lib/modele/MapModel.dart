@@ -21,6 +21,7 @@ class MapModel {
       int y = Random().nextInt(nbCol);
       _cases[x][y].placerbomb();
     }
+  }
 
     bool tryGetCase(int x,int y){
       return (x>=0 && x<=nbLine && y<=nbCol && y>=0);
@@ -28,39 +29,32 @@ class MapModel {
 
     List<CaseModel> casesAuTour(int x,int y){
       List<CaseModel> auTour = List<CaseModel>.empty();
-      if(tryGetCase(x-1,y-1)){
-        auTour.add(_cases[x-1][y-1]);
-      }if(tryGetCase(x,y-1)){
-        auTour.add(_cases[x][y-1]);
-      }if(tryGetCase(x+1,y-1)){
-        auTour.add(_cases[x+1][y]);
-      }
-      if(tryGetCase(x-1,y)){
-        auTour.add(_cases[x-1][y]);
-      }if(tryGetCase(x+1,y)){
-        auTour.add(_cases[x+1][y]);
-      }
-      if(tryGetCase(x-1,y+1)){
-        auTour.add(_cases[x-1][y+1]);
-      }if(tryGetCase(x,y+1)){
-        auTour.add(_cases[x][y+1]);
-      }if(tryGetCase(x+1,y+1)){
-        auTour.add(_cases[x+1][y+1]);
+
+      for(int i=-1;i<=3;i++){
+        for(int j=-1;j<=3;j++){
+          if(tryGetCase(x-j,y-i)){
+            auTour.add(_cases[x-j][y-i]);
+          }
+        }
       }
       return auTour;
     }
 
     int computerNumber(int x, int y){
       int cpt=0;
-
-      return cpt;
+      List<CaseModel> grille = casesAuTour(x,y);
+      for (int i = 0;i<grille.length;i++){
+          if (grille[i].possedeBomb()){
+            cpt++;
+          }
+      }return cpt;
     }
 
     void initNumber(){
 
     }
 
+
+
+
   }
-
-
-}
